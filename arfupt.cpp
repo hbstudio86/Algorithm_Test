@@ -26,9 +26,16 @@ int main(void)
 	cout << "\nArray have int the elemental of function pointer \n";
 	cout << "Address \n";
 	for (int i = 0; i < 3; i++)
-	{
 		cout << pa[i](av, 3) << ":" << *pa[i](av, 3) << endl;
-	}
+	cout << "\npointer is choice function pointer:\n";
+	cout << "주소 값\n";
+	for (int i = 0; i < 3; i++)
+		cout << pb[i](av, 3) << ": " << *pb[i](av, 3) << endl;
+	//함수 포인터를 원소로 가지는 배열을 가리키는 포인터
+	cout << "\n포인터를 원소로 가지는 배열을 가리키는 포인터:\n";
+	cout << "주소값\n";
+	auto pc = &pa;
+	cout << (*pc)[0](av, 3) << ": " << *(*pc)[0](av, 3) << endl;
 	return 0;
 }
 
