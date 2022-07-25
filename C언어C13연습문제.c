@@ -7,3 +7,41 @@
 //바이너리로 읽을 것
 //파일여부 확인 할것
 //없다면 프로그램에서 입력을 받을 것
+
+//명령행 전달인자
+//0은 파일이름 문자열
+//1은 추가
+//명령 프롬프트에서 [파일이름 전달인자] 의 형식으로 사용하면 된다.
+//전달 인자의 구분은 화이트스페이스로 구분된다.
+#pragma warning (disable : 4996)
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char * args[])	//문자열을 받을 것이니 2중포인터 사용할 것
+{
+	//for (int i = 0; i < argc; i++)
+	//	printf("%s\n", args[i]);
+	double sum = 0;	//총합을 위한 변수 선언
+	if (argc == 1)	//명령행 전달인자가 추가적으로 없을 때
+	{
+		int cnt = 0;		//평균을 내기위한 변수
+		double tmp = 0;	//임시 변수
+		puts("파일명을 입력하지 않았습니다.");
+		puts("수동으로 값을 입력하세요");
+		puts("종료는 Q입니다.");
+		while (fscanf(stdin,"%lf",&tmp))
+		{
+			//printf("%.2f", sum);
+			sum += tmp;
+			cnt++;
+		}
+		puts("종료");
+		printf("입력 값의 평균 : %.2f\n", sum / (double)cnt);
+	}
+	else if (argc > 1)
+	{
+		FILE* fp;	//파일을 열기위한 파일포인터
+		/*if (fopen())*/
+	}
+	return 0;
+}
