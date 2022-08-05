@@ -17,11 +17,13 @@ int main(void)
 		{
 			if (!(inPut1 % 2))	//Â¦¼ö
 			{
-				cout << ((inPut1 * inPut1 / 2) + inPut1 / 2) - sum;
+				printf("%lld", ((inPut1 * inPut1 / 2) + inPut1 / 2) - sum);
+				//cout << ((inPut1 * inPut1 / 2) + inPut1 / 2) - sum;
 			}
 			else  //È¦¼ö
 			{
-				cout << (inPut1 * ((inPut1 / 2) + (inPut1 % 2))) - sum;
+				printf("%lld", (inPut1 * ((inPut1 / 2) + (inPut1 % 2))) - sum);
+				//cout << (inPut1 * ((inPut1 / 2) + (inPut1 % 2))) - sum;
 			}
 			break;
 		}
