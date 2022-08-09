@@ -1,3 +1,4 @@
+#pragma warning (disable : 4996)
 #include <stdio.h>
 
 //Q0.2 pointer Swap
@@ -39,6 +40,20 @@ int main(void) {
 	for (int i = 0; i < 8; i++) {
 		printf("arr1[%.2d]: %.2d\n", i, arr1[i]);
 	}
+	puts("-----------------------------------");
+	printf("Right Rotate Number Before\n");
+	int arr2[10] = { 1,2,3,4,5,6,7,8,9,10 };
+	int k;
+	for (int i = 0; i < 10; i++) {
+		printf("arr1[%.2d]: %.2d\n", i, arr2[i]);
+	}
+	printf("반복 인수를 입력하세요...");
+	scanf("%d", &k);
+	RightRotateN(arr2, 2, 6, k);
+	printf("Right Rotate Number After\n");
+	for (int i = 0; i < 10; i++) {
+		printf("arr1[%.2d]: %.2d\n", i, arr2[i]);
+	}
 	return 0;
 }
 
@@ -74,4 +89,14 @@ void RightRotateN(int* arr, int start, int target, int k) {
 	//  else
 	//		arr[start + i] = arr[start + i] - y / x
 	// 
+	int total, re, le;
+	total = target - start + 1;
+	re = total - k;
+	le = re * k;
+	for (int i = 0; i < total; i++) {
+		if ((i + 1) <= k)
+			arr[start + i] += le / k;
+		else
+			arr[start + i] -= le / re;
+	}
 }
