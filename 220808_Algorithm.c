@@ -9,6 +9,7 @@ void ArrSwap(int*, int*, int);
 void RightRotate(int* arr, int start, int target);
 //Q0.3 Right_rotate N Function
 void RightRotateN(int* arr, int start, int target, int k);
+//Q0.4 Array Queue
 
 
 int main(void) {
@@ -53,6 +54,14 @@ int main(void) {
 	printf("Right Rotate Number After\n");
 	for (int i = 0; i < 10; i++) {
 		printf("arr1[%.2d]: %.2d\n", i, arr2[i]);
+	}
+
+	puts("--------------Q0.4 Array Queue------------");
+	int arrQueue[8];
+	int istNbr;	//입력 받은 수 0일 때 종료 한다.
+	while (1)
+	{
+
 	}
 	return 0;
 }
