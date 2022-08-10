@@ -1,5 +1,6 @@
 #pragma warning (disable : 4996)
 #include <stdio.h>
+#define STACK_CAPACITY 8
 
 //Q0.2 pointer Swap
 void NumSwap(int*, int*);
@@ -10,6 +11,9 @@ void RightRotate(int* arr, int start, int target);
 //Q0.3 Right_rotate N Function
 void RightRotateN(int* arr, int start, int target, int k);
 //Q0.4 Array Queue
+//Q0.4 Array Stack
+int PushBack();	//넣고
+int Pop();		//빼고
 
 
 int main(void) {
@@ -57,12 +61,55 @@ int main(void) {
 	}
 
 	puts("--------------Q0.4 Array Queue------------");
+	//0 = 큐에서 가장 오래 기다린 대기 번호를 꺼내어출력
+	//0 > 프로그램 종료
+	//입력된 큐가 없으면 "queue empty!"출력
+	//큐가 가득차서 넣을 수 없다면 "queue full!"출력
 	int arrQueue[8];
-	int istNbr;	//입력 받은 수 0일 때 종료 한다.
-	while (1)
+	int istNbr;
+	int cnt = 0; //queue 카운팅용
+	puts("배열형 큐입니다.");
+	puts("0보다 큰수를 입력하면 대기열에 저장 됩니다");
+	puts("0을 입력하면 가장 오래된 숫자를 출력합니다.");
+	puts("0보다 작은 수를 입력하면 종료 됩니다.");
+	printf("입력해주세요 >> __\b\b");
+	while (scanf("%d",&istNbr))
 	{
+		while (getchar() != '\n')	//입력 버퍼 비우기
+			continue;
 
+		if (istNbr < 0) {	//종료
+			break;
+		}
+		else if (istNbr > 0) {	//입력
+			if (8 == cnt) {		//만약 큐가 가득 찼다면...
+				puts("queue full!");
+			}
+			else {
+				arrQueue[cnt] = istNbr;	//큐에 입력 숫자를 넣는다.
+				cnt++;
+			}
+		}
+		else {	//출력
+			if (0 == cnt) { //큐가 비어 있다면...
+				puts("queue empty!");
+			}
+			else {
+				cnt--;
+				printf("[%d]\n", arrQueue[0]);	//오래된 큐를 출력한다.
+				for (int i = 1; i <= cnt; i++) {
+					arrQueue[i - 1] = arrQueue[i];
+				}
+			}
+		}
+		printf("입력해주세요 >> __\b\b");
 	}
+	puts("종료");
+	//head = (head +1) & QUEUE_CAPACITY;
+	//tail = (tail +1) & QUEUE_CAPACITY;
+	//큐를 선형이 아닌 원형으로 생각한다면 반복문을 쓰지 않고 더 빠른 결과를 얻을 수 있다...
+	puts("--------------Q0.4 Array Stack------------");
+	int arrStack[STACK_CAPACITY];	//스택용 배열 선언
 	return 0;
 }
 
