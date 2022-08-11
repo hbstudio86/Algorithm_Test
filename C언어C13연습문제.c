@@ -36,11 +36,30 @@ int main(int argc, char * args[])	//문자열을 받을 것이니 2중포인터 사용할 것
 			cnt++;
 		}
 		puts("종료");
-		printf("입력 값의 평균 : %.2f\n", sum / (double)cnt);
+		if (0 != cnt)	// 입력이되었다면..
+			printf("입력 값의 평균 : %.2f\n", sum / (double)cnt);
+		else
+			puts("값을 입력하지 않았습니다.");
 	}
 	else if (argc > 1)
 	{
+		puts("파일을 읽어 옵니다.");
+		printf("%s\n", args[1]);
 		FILE* fp;	//파일을 열기위한 파일포인터
+		double sum = 0.0, tmp;
+		int cnt =0 ;
+		fp = fopen(args[1], "rb");
+		printf("%d\n", sizeof(fp));
+		while (fread(&tmp,sizeof(double),1,fp) != EOF) {	//왜 0.00이 출력 되는 거야??
+			printf("%.2f\n", tmp);
+			sum += tmp;
+			cnt++;
+		}
+		puts("종료");
+		if (0 != cnt)	// 입력이되었다면..
+			printf("입력 값의 평균 : %.2f\n", sum / (double)cnt);
+		else
+			puts("값을 입력하지 않았습니다.");
 		/*if (fopen())*/
 	}
 	return 0;
