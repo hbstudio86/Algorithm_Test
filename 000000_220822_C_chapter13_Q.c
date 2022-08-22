@@ -14,7 +14,7 @@ int main(void) {
 	printf("읽어올 파일명을 입력하세요..");
 	scanf("%s", f_Name);	// 파일명을 입력 받음
 
-	if ((fp = fopen(f_Name, "r")) == NULL) {
+	if ((fp = fopen(f_Name, "r")) == NULL) {	//어이 없는 실수를 했다. null일때 실행되어야 하는데... 아닐때 실행으로 함..
 		printf("%s 파일을 읽어 올 수 없습니다.\n", f_Name);
 		exit(EXIT_FAILURE);
 	}
