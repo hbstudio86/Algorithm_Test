@@ -7,7 +7,7 @@ void HanoiTowerMove(int, char, char, char);
 
 int main() {
 
-	HanoiTowerMove(4, 'A', 'B', 'C');
+	HanoiTowerMove(3, 'A', 'B', 'C');
 
 	return 0;
 }
