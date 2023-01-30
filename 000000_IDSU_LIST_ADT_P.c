@@ -20,6 +20,9 @@ void Linsert(LIST* plist, LDATA data) {
 }
 
 int LFirst(LIST* plist, LDATA* pdata) {	//data 조회
+	if (plist->numOfData == 0) {	//만약 저장이 안된 자료 구조라면?
+		return FALSE;				//False를 리턴한다.
+	}
 
 }
 int LNext(LIST* plist, LDATA* pdata) {
