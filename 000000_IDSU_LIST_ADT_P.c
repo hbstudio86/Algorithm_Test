@@ -19,7 +19,7 @@ void Linsert(LIST* plist, LDATA data) {
 		printf("더 이상 저장 할 수 없습니다.\n");
 }
 
-int LFirst(LIST* plist, LDATA* pdata) {
+int LFirst(LIST* plist, LDATA* pdata) {	//data 조회
 
 }
 int LNext(LIST* plist, LDATA* pdata) {
