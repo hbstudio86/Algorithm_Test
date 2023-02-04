@@ -29,10 +29,10 @@ int LFirst(LIST* plist, LDATA* pdata) {	//data 조회
 	return TRUE;
 }
 int LNext(LIST* plist, LDATA* pdata) {
+	plist->curPosition++;
 	if (plist->curPosition > plist->numOfData - 1) {
 		return FALSE;
 	}
-	plist->curPosition++;
 	*pdata = plist->arr[plist->curPosition];
 	return TRUE;
 }
@@ -40,6 +40,21 @@ int LNext(LIST* plist, LDATA* pdata) {
 LDATA LRemove(LIST* plist) {	//삭제 
 	//삭제 할 인덱스는 다음 인덱스로 덮어 쓴다.
 	//삭제 할 인덱스의 값을 다음 인덱스 값으로 덮어 슨다.
+	LDATA data;
+	int curr = plist->curPosition;	//현재 위치를 간단히 저장
+	int lens = plist->numOfData;	//자료의 길이
+	data = plist->arr[curr];	// 현재 index의 값을 data에 넣는다.
+	for (int i = curr; i < lens; i++) {
+		if (i == lens - 1) {	//마지막 인덱스이면, 다음 것을 불러 오지 않고 null문자를 넣는다.
+			plist->arr[i] = '\0';	// null을 넣어 준다.
+		}
+		else {
+			plist->arr[i] = plist->arr[i + 1];	//다음 인덱스의 값을 덮어 쓴다.
+		}
+	}
+	plist->numOfData--;	//하나 감소
+	//plist->curPosition = curr - 1;	// 삭제하하고 가리키는 위치를 현재위치로 할지 이전으로 할지...
+	return data;	//삭제할 값을 리턴한다.
 }
 int LCount(LIST* plist) {
 		printf("DATA 저장 수 : %d개\n", plist->numOfData);
