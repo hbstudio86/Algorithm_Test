@@ -53,7 +53,7 @@ LDATA LRemove(LIST* plist) {	//삭제
 		}
 	}
 	plist->numOfData--;	//하나 감소
-	//plist->curPosition = curr - 1;	// 삭제하하고 가리키는 위치를 현재위치로 할지 이전으로 할지...
+	plist->curPosition--;	// 삭제하하고 가리키는 위치를 현재위치로 할지 이전으로 할지...
 	return data;	//삭제할 값을 리턴한다.
 }
 int LCount(LIST* plist) {
