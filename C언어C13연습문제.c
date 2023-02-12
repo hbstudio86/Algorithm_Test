@@ -67,5 +67,6 @@ int main(int argc, char * args[])	//문자열을 받을 것이니 2중포인터 사용할 것
 			puts("값을 입력하지 않았습니다.");
 		/*if (fopen())*/
 	}
+
 	return 0;
 }
