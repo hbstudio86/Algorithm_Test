@@ -14,5 +14,20 @@ int main(void) {
 		printf("\n");
 	}
 
+	int ix, iy;
+	ix = iy = 5;
+
+	do {
+
+		for (int i = 0; i < ix; i++) {
+
+		}	// hori
+		
+		for (int i = 0; i < ix - 1; i++) {
+
+		} // verti
+
+	} while (1);
+
 	return 0;
 }
