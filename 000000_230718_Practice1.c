@@ -14,9 +14,9 @@ int main(void) {
 		printf("\n");
 	}
 
-	int ix, iy;
+	int ix, iy, rev;
 	ix = iy = 5;
-
+	rev = 1;	// 1 순방향, -1 역방향	
 	do {
 
 		for (int i = 0; i < ix; i++) {
@@ -26,6 +26,8 @@ int main(void) {
 		for (int i = 0; i < ix - 1; i++) {
 
 		} // verti
+
+
 
 	} while (1);
 
