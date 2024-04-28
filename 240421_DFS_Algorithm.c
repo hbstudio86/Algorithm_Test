@@ -65,7 +65,7 @@ int main(void) {
 	//stPop(&OPEN);
 
 
-
+	printf("Hello world");
 
 	return 0;
 }
