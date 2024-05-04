@@ -20,7 +20,12 @@ typedef struct _node {
 
 //Operator
 //노드를 만들어서... 오픈에다가 넣어 줘야 겠네 바로
+//open과 close에 동일한 node가 있는지 확인 필요함
+NODE opUp(NODE*);
 
+//open,close에 동일한 node가 존재 하는지확인
+//1 exist, 0 noexist
+int nodeSame(NODE*, STACK*, STACK*);
 
 //open과 close는 스택인데... 근데 이것의 크기를 어떤식으로 구현해야 하지?
 //100개 정도면 충분한가??
@@ -31,6 +36,7 @@ typedef struct _stack {
 
 }STACK;
 
+//node is input to list.
 STACK OPEN = { {NULL,},-1 };
 STACK CLOSE = { {NULL,},-1 };
 
@@ -40,7 +46,7 @@ int isEmpty(STACK);
 void stPush(STACK*, NODE*);
 NODE* stPop(STACK*);
 
-void opexp(NODE);
+void opexp(NODE);	//expand operator
 
 typedef struct _path {
 
@@ -51,7 +57,7 @@ typedef struct _path {
 int main(void) {
 
 	//initial status
-	NODE node = { {{2,8,3},{1,6,4},{7,0,5}},2,1,NULL };
+	NODE snode = { {{2,8,3},{1,6,4},{7,0,5}},2,1,NULL };
 
 	//Goal status
 	NODE gnode = { {{1,2,3},{8,0,4},{7,6,5}},1,1,NULL };
@@ -101,4 +107,33 @@ NODE* stPop(STACK *stack) {
 	}
 	printf("STACK IS EMPTY\n");
 	return NULL;
+}
+
+//empty slot replacement
+NODE opUp(NODE* node) {
+	  
+}
+
+int nodeSame(NODE* node, STACK* open, STACK* closed) {
+	int stackCNT = 0;
+	do {
+		//만약 list에 node가 존재 한다면...
+		if (open->data[stackCNT] != NULL) {
+			//1. empty position compare
+			//2. puzzle compare; summary??
+			if (node->empty_X == open->data[stackCNT]->empty_X && node->empty_Y == open->data[stackCNT]->empty_Y) {
+				for (int i = 0; i < 9; i++) {
+					for (int j = 0; j < 9; j++) {
+						
+						if(node->puzzle[i][j])
+					}
+				}
+
+			}
+		}
+		if (closed->data[stackCNT] != NULL) {
+
+		}
+		stackCNT++;
+	} while (open->data[stackCNT] == NULL && closed->data[stackCNT] == NULL);
 }
