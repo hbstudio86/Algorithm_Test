@@ -1,5 +1,6 @@
 #pragma warning(disable:4996)
 #include <stdio.h>
+#include <stdlib.h>
 #define MAX 100
 
 //8puzzle 문제
@@ -20,12 +21,18 @@ typedef struct _node {
 
 //Operator
 //노드를 만들어서... 오픈에다가 넣어 줘야 겠네 바로
-//open과 close에 동일한 node가 있는지 확인 필요함
+//open과 close에 동일한 node가 있는지 확인 필요함----필요 없음
+//parents node와 compare하면 됨
 NODE opUp(NODE*);
+
+//상태 출력
+void printNODE(NODE*);
 
 //open,close에 동일한 node가 존재 하는지확인
 //1 exist, 0 noexist
-int nodeSame(NODE*, STACK*, STACK*);
+//parents node의 주소를 이용해서 만약 expanded node와 같다면...
+//int nodeSame(NODE*, STACK*, STACK*);
+int nodeSame(NODE*);
 
 //open과 close는 스택인데... 근데 이것의 크기를 어떤식으로 구현해야 하지?
 //100개 정도면 충분한가??
@@ -57,7 +64,7 @@ typedef struct _path {
 int main(void) {
 
 	//initial status
-	NODE snode = { {{2,8,3},{1,6,4},{7,0,5}},2,1,NULL };
+	NODE snode = { {{2,8,3},{1,6,4},{7,0,5}},1,2,NULL };
 
 	//Goal status
 	NODE gnode = { {{1,2,3},{8,0,4},{7,6,5}},1,1,NULL };
@@ -70,6 +77,10 @@ int main(void) {
 	//stPop(&OPEN);
 	//stPop(&OPEN);
 
+	printNODE(&snode);
+	//printNODE(&gnode);
+	opUp(&snode);
+	printNODE(&snode);
 
 	printf("Hello world");
 
@@ -111,29 +122,52 @@ NODE* stPop(STACK *stack) {
 
 //empty slot replacement
 NODE opUp(NODE* node) {
-	  
+	/*if (node->empty_Y > 0) {
+		node->puzzle[node->empty_Y][node->empty_X] = node->puzzle[node->empty_Y-1][node->empty_X];
+		node->puzzle[node->empty_Y-1][node->empty_X] = 0;
+		node->empty_Y--;	
+	 }*/
+	//부모 node가 없은 그러니깐 처음 시작 상태일 때, 아니라면 현재 node이 빈칸의 위치와 부모 node의 빈칸의 위치를 비교 하는 거지
+	//
+	if (node->_path == NULL || (node->empty_X != node->_path->empty_X && node->empty_Y != node->_path->empty_Y)) {
+		//node를 새로 생성해야 함
+	}
 }
 
-int nodeSame(NODE* node, STACK* open, STACK* closed) {
-	int stackCNT = 0;
-	do {
-		//만약 list에 node가 존재 한다면...
-		if (open->data[stackCNT] != NULL) {
-			//1. empty position compare
-			//2. puzzle compare; summary??
-			if (node->empty_X == open->data[stackCNT]->empty_X && node->empty_Y == open->data[stackCNT]->empty_Y) {
-				for (int i = 0; i < 9; i++) {
-					for (int j = 0; j < 9; j++) {
-						
-						if(node->puzzle[i][j])
-					}
-				}
+//int nodeSame(NODE* node, STACK* open, STACK* closed) {
+//	int stackCNT = 0;
+//	do {
+//		//만약 list에 node가 존재 한다면...
+//		if (open->data[stackCNT] != NULL) {
+//			//1. empty position compare
+//			//2. puzzle compare; summary??
+//			if (node->empty_X == open->data[stackCNT]->empty_X && node->empty_Y == open->data[stackCNT]->empty_Y) {
+//				for (int i = 0; i < 9; i++) {
+//					for (int j = 0; j < 9; j++) {
+//						
+//						if(node->puzzle[i][j])
+//					}
+//				}
+//
+//			}
+//		}
+//		if (closed->data[stackCNT] != NULL) {
+//
+//		}
+//		stackCNT++;
+//	} while (open->data[stackCNT] == NULL && closed->data[stackCNT] == NULL);
+//}
 
-			}
-		}
-		if (closed->data[stackCNT] != NULL) {
+int nodeSame(NODE* pnode) {
 
+}
+
+void printNODE(NODE* node) {
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			printf("[%d] ", node->puzzle[i][j]);
 		}
-		stackCNT++;
-	} while (open->data[stackCNT] == NULL && closed->data[stackCNT] == NULL);
+		printf("\n");
+	}
+	printf("\n");
 }
