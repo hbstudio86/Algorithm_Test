@@ -129,8 +129,20 @@ NODE opUp(NODE* node) {
 	 }*/
 	//부모 node가 없은 그러니깐 처음 시작 상태일 때, 아니라면 현재 node이 빈칸의 위치와 부모 node의 빈칸의 위치를 비교 하는 거지
 	//
-	if (node->_path == NULL || (node->empty_X != node->_path->empty_X && node->empty_Y != node->_path->empty_Y)) {
+	if (node->empty_Y > 0 || (node->_path == NULL || (node->empty_X != node->_path->empty_X && node->empty_Y != node->_path->empty_Y))) {
 		//node를 새로 생성해야 함
+		//open list에 push해줘야 함
+		NODE* newNode = (NODE*)malloc(sizeof(NODE));
+		newNode->empty_X = node->empty_X;
+		newNode->empty_Y = node->empty_Y - 1;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (newNode->empty_X == j && newNode->empty_Y == i) {
+					newNode->puzzle[i][j] = 0;
+				}
+				else if()
+			}
+		}
 	}
 }
 
