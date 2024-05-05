@@ -23,7 +23,10 @@ typedef struct _node {
 //노드를 만들어서... 오픈에다가 넣어 줘야 겠네 바로
 //open과 close에 동일한 node가 있는지 확인 필요함----필요 없음
 //parents node와 compare하면 됨
-NODE opUp(NODE*);
+NODE* opUp(NODE*);
+NODE* opDw(NODE*);
+NODE* opLf(NODE*);
+NODE* opRt(NODE*);
 
 //상태 출력
 void printNODE(NODE*);
@@ -69,6 +72,9 @@ int main(void) {
 	//Goal status
 	NODE gnode = { {{1,2,3},{8,0,4},{7,6,5}},1,1,NULL };
 
+	//NODE* tnode;
+	//PATH* tpath;
+	struct _node * pnode;
 	//stack setting
 	//stPop(&OPEN);
 	//stPush(&OPEN, &node);
@@ -79,10 +85,21 @@ int main(void) {
 
 	printNODE(&snode);
 	//printNODE(&gnode);
-	opUp(&snode);
-	printNODE(&snode);
+	//tpath = opUp(&snode);
+	pnode = opUp(&snode);
+	//printNODE(opUp(&snode));
+	//printNODE(tpath);
+	printNODE(pnode);
+	printNODE(opDw(&snode));
+	printNODE(opLf(&snode));
+	//printNODE(opRt(&snode));
+	//printf("Hello world");
 
-	printf("Hello world");
+	stPush(&OPEN, opUp(&snode));
+	stPush(&OPEN, opUp(OPEN.data[OPEN.top]));
+
+	printNODE(stPop(&OPEN));
+	printNODE(stPop(&OPEN));
 
 	return 0;
 }
@@ -104,7 +121,6 @@ int isEmpty(STACK stack) {
 	}
 	return 0;	// is not empty
 }
-
 void stPush(STACK *stack, NODE* pnode) {
 	if (isFull(*stack) != 1) {
 		(*stack).data[++(*stack).top] = pnode;
@@ -121,7 +137,7 @@ NODE* stPop(STACK *stack) {
 }
 
 //empty slot replacement
-NODE opUp(NODE* node) {
+NODE* opUp(NODE* node) {
 	/*if (node->empty_Y > 0) {
 		node->puzzle[node->empty_Y][node->empty_X] = node->puzzle[node->empty_Y-1][node->empty_X];
 		node->puzzle[node->empty_Y-1][node->empty_X] = 0;
@@ -129,23 +145,113 @@ NODE opUp(NODE* node) {
 	 }*/
 	//부모 node가 없은 그러니깐 처음 시작 상태일 때, 아니라면 현재 node이 빈칸의 위치와 부모 node의 빈칸의 위치를 비교 하는 거지
 	//
-	if (node->empty_Y > 0 || (node->_path == NULL || (node->empty_X != node->_path->empty_X && node->empty_Y != node->_path->empty_Y))) {
-		//node를 새로 생성해야 함
-		//open list에 push해줘야 함
-		NODE* newNode = (NODE*)malloc(sizeof(NODE));
-		newNode->empty_X = node->empty_X;
-		newNode->empty_Y = node->empty_Y - 1;
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (newNode->empty_X == j && newNode->empty_Y == i) {
-					newNode->puzzle[i][j] = 0;
+	if (node->empty_Y > 0) {
+		if (node->_path == NULL || (node->empty_X != node->_path->empty_X && node->empty_Y != node->_path->empty_Y)) {
+			//node를 새로 생성해야 함
+			//open list에 push해줘야 함
+			NODE* newNode = (NODE*)malloc(sizeof(NODE));
+			newNode->empty_X = node->empty_X;
+			newNode->empty_Y = node->empty_Y - 1;
+			newNode->_path = &node;
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					if (newNode->empty_X == j && newNode->empty_Y == i) {
+						newNode->puzzle[i][j] = 0;
+					}
+					else if (node->empty_X == j && node->empty_Y == i) {
+						newNode->puzzle[i][j] = node->puzzle[newNode->empty_Y][newNode->empty_X];
+					}
+					else {
+						newNode->puzzle[i][j] = node->puzzle[i][j];
+					}
 				}
-				else if()
 			}
+			return newNode;
 		}
 	}
+	return NULL;
 }
-
+NODE* opDw(NODE* node) {
+	if (node->empty_Y < 2) {
+		if (node->_path == NULL || (node->empty_X != node->_path->empty_X && node->empty_Y != node->_path->empty_Y)) {
+			//node를 새로 생성해야 함
+			//open list에 push해줘야 함
+			NODE* newNode = (NODE*)malloc(sizeof(NODE));
+			newNode->empty_X = node->empty_X;
+			newNode->empty_Y = node->empty_Y + 1;
+			newNode->_path = &node;
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					if (newNode->empty_X == j && newNode->empty_Y == i) {
+						newNode->puzzle[i][j] = 0;
+					}
+					else if (node->empty_X == j && node->empty_Y == i) {
+						newNode->puzzle[i][j] = node->puzzle[newNode->empty_Y][newNode->empty_X];
+					}
+					else {
+						newNode->puzzle[i][j] = node->puzzle[i][j];
+					}
+				}
+			}
+			return newNode;
+		}
+	}
+	return NULL;
+}
+NODE* opLf(NODE* node) {
+	if (node->empty_X > 0) {
+		if (node->_path == NULL || (node->empty_X != node->_path->empty_X && node->empty_Y != node->_path->empty_Y)) {
+			//node를 새로 생성해야 함
+			//open list에 push해줘야 함
+			NODE* newNode = (NODE*)malloc(sizeof(NODE));
+			newNode->empty_X = node->empty_X -1;
+			newNode->empty_Y = node->empty_Y;
+			newNode->_path = &node;
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					if (newNode->empty_X == j && newNode->empty_Y == i) {
+						newNode->puzzle[i][j] = 0;
+					}
+					else if (node->empty_X == j && node->empty_Y == i) {
+						newNode->puzzle[i][j] = node->puzzle[newNode->empty_Y][newNode->empty_X];
+					}
+					else {
+						newNode->puzzle[i][j] = node->puzzle[i][j];
+					}
+				}
+			}
+			return newNode;
+		}
+	}
+	return NULL;
+}
+NODE* opRt(NODE* node) {
+	if (node->empty_X < 2) {
+		if (node->_path == NULL || (node->empty_X != node->_path->empty_X && node->empty_Y != node->_path->empty_Y)) {
+			//node를 새로 생성해야 함
+			//open list에 push해줘야 함
+			NODE* newNode = (NODE*)malloc(sizeof(NODE));
+			newNode->empty_X = node->empty_X + 1;
+			newNode->empty_Y = node->empty_Y;
+			newNode->_path = &node;
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					if (newNode->empty_X == j && newNode->empty_Y == i) {
+						newNode->puzzle[i][j] = 0;
+					}
+					else if (node->empty_X == j && node->empty_Y == i) {
+						newNode->puzzle[i][j] = node->puzzle[newNode->empty_Y][newNode->empty_X];
+					}
+					else {
+						newNode->puzzle[i][j] = node->puzzle[i][j];
+					}
+				}
+			}
+			return newNode;
+		}
+	}
+	return NULL;
+}
 //int nodeSame(NODE* node, STACK* open, STACK* closed) {
 //	int stackCNT = 0;
 //	do {
@@ -175,11 +281,14 @@ int nodeSame(NODE* pnode) {
 }
 
 void printNODE(NODE* node) {
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			printf("[%d] ", node->puzzle[i][j]);
+	if (node != NULL) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				printf("[%d] ", node->puzzle[i][j]);
+			}
+			printf("\n");
 		}
+		printf("parents node: %p\n", node->_path);
 		printf("\n");
 	}
-	printf("\n");
 }
