@@ -302,7 +302,7 @@ void printNODE(NODE* node) {
 			}
 			printf("\n");
 		}
-		printf("This node : %p", &node);
+		printf("This node : %p\n", node);
 		printf("parents node: %p\n", node->_path);
 		printf("\n");
 	}
