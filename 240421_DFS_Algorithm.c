@@ -72,8 +72,10 @@ int main(void) {
 	//Goal status
 	NODE gnode = { {{1,2,3},{8,0,4},{7,6,5}},1,1,NULL };
 
+	/*
 	//NODE* tnode;
 	//PATH* tpath;
+	*/
 	struct _node * pnode;
 	//stack setting
 	//stPop(&OPEN);
@@ -101,6 +103,18 @@ int main(void) {
 	printNODE(stPop(&OPEN));
 	printNODE(stPop(&OPEN));
 
+
+
+	//snode를 open에 넣기
+	//open에 top인 node를 꺼내기
+	//꺼낸 node를 목표 node인지 확인하기
+	//node 확장 ---> 연산자로 생성 가능한 노드를 생성
+	//node를 close에 넣기
+	//생성한 노드들을 모두 open에 넣기
+	//반복
+
+
+	//동적 할당 된 node들을 모두 수동을 해제 해줘야함
 	return 0;
 }
 
@@ -288,6 +302,7 @@ void printNODE(NODE* node) {
 			}
 			printf("\n");
 		}
+		printf("This node : %p", &node);
 		printf("parents node: %p\n", node->_path);
 		printf("\n");
 	}
